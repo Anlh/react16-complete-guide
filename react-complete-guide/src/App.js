@@ -5,7 +5,7 @@ import Person from './Person/Person';
 class App extends Component {
     state = {
         persons: [
-            {name: 'Pedro'},
+            {name: ''},
             {name: 'Daniel'}
         ]
     };
@@ -17,12 +17,19 @@ class App extends Component {
         this.setState({
             persons: [
                 {name: newName},
-                {name: 'Tiago'}
+                {name: 'Daniel'}
             ]
         });
     };
 
-
+    changeNameHandler = (newName) => {
+        this.setState({
+            persons: [
+                {name: newName},
+                {name: 'Daniel'}
+            ]
+        });
+    };
 
     render() {
         return (
@@ -30,7 +37,9 @@ class App extends Component {
                 {/*Be aware This is cost inefficient than the bind syntax,
                 Because the DOM can be updated many times*/}
                 <button onClick={() => this.switchNameHandler()}>Change name</button>
-                <Person name={this.state.persons[0].name} />
+                <Person
+                    change={this.changeNameHandler.bind(this)}
+                    name={this.state.persons[0].name} />
                 <Person
                     click={this.switchNameHandler.bind(this, 'Rui')}
                     name={this.state.persons[1].name}/>
