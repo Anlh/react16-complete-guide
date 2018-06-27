@@ -1,39 +1,24 @@
 import React, {Component} from 'react';
 import './App.css';
-import Person from './Person/Person';
+
+import UserInput from "./components/UserInput.component";
+import UserOutput from "./components/UserOutput.component";
+
 
 class App extends Component {
     state = {
-        persons: [
-            {name: 'Daniel'}
-        ]
+        userName: 'Helder'
     };
 
-    changeNameHandler = (newName) => {
-        this.setState({
-            persons: [
-                {name: newName},
-            ]
-        });
-    };
+    onUserNameChangeHandler(userName) {
+        this.setState({userName})
+    }
 
     render() {
-        const btnStyle = {
-            backgroundColor: 'white',
-            font: 'inherit',
-            border: '1px solid blue',
-            padding: '8px',
-            cursor: 'pointer'
-        };
-
         return (
             <div className="App">
-                {/*Be aware This is cost inefficient than the bind syntax,
-                Because the DOM can be updated many times*/}
-                <button style={btnStyle}>Button to style</button>
-                <Person
-                    change={this.changeNameHandler.bind(this)}
-                    name={this.state.persons[0].name} />
+                <UserInput onUserNameChange={this.onUserNameChangeHandler.bind(this)}/>
+                <UserOutput userName={this.state.userName}/>
             </div>
         );
     }
