@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classes from './App.css'; // Css module loader let us use css classes as properties attached to this classes object
 import Person from './components/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
     state = {
@@ -24,14 +25,23 @@ class App extends Component {
     render() {
         let personsList = null;
         let btnClass = '';
+        const rnd = Math.random();
+
+        if (rnd > 0.7) {
+            throw new Error('Something went wrong');
+        }
 
         if (this.state.showPersons) {
-            personsList = this.state.persons.map((p, index) => {
-                return <Person
-                    click={() => this.personRemoveHandler(index)}
-                    key={p.id}
-                    name={p.name}
-                    age={p.age}/>
+            personsList = this.state.persons.map((person, index) => {
+                return (
+                    <ErrorBoundary key={person.id}>
+                        <Person
+                            click={() => this.personRemoveHandler(index)}
+                            key={person.id}
+                            name={person.name}
+                            age={person.age}/>
+                    </ErrorBoundary>
+                );
             });
 
             btnClass = classes.Red;
@@ -52,7 +62,8 @@ class App extends Component {
                 <p className={assignedClasses}>List of persons</p>
                 <button
                     className={btnClass}
-                    onClick={() => this.togglePersons()}>Toggle Persons</button>
+                    onClick={() => this.togglePersons()}>Toggle Persons
+                </button>
                 {personsList}
             </div>
         );
