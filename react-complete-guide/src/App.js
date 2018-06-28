@@ -77,7 +77,7 @@ class App extends Component {
                 Because the DOM can be updated many times*/}
                 <button onClick={this.togglePersonHandler}>Toggle Persons</button>
                 {persons}
-                {/*{
+                {/*{ Using ternary expressions to conditionally render something
                     this.state.showPersons ?
                         <div>
                             <Person name={this.state.persons[0].name}/>
