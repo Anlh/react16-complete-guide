@@ -5,8 +5,8 @@ import Person from './Person/Person';
 class App extends Component {
     state = {
         persons: [
-            {name: 'Pedro'},
-            {name: 'Daniel'}
+            {id: '1', name: 'Pedro'},
+            {id: '2', name: 'Daniel'}
         ],
         showPersons: false
     };
@@ -14,13 +14,25 @@ class App extends Component {
     // Using the arrow syntax we can pass the function directly on the event click
     // this keyword will reference the App class and not to the event context
     // if we had use a normal function this would emit an error
-    switchNameHandler = (newName = 'Helder') => {
-        this.setState({
-            persons: [
-                {name: newName},
-                {name: 'Tiago'}
-            ]
+    switchNameHandler = (newName, id) => {
+        const  personIndex = this.state.persons.findIndex(p => {
+            return p.id === id;
         });
+
+        const person = {
+            ...this.state.persons[personIndex] // return a new reference for the selected person with all the properties that the person from state has
+        };
+
+        // Other approach to create a new object reference in memory with old syntax the above one is next gen js syntax
+        // const person = Object.assign({}, this.state.persons[personIndex]);
+
+        person.name = newName;
+
+        // now we need to update the array list with the new person, removing the old one
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
+        this.setState({persons: persons}); // or just this.setState({persons})
     };
 
     deletePersonHandler = (personIndex) => {
@@ -50,7 +62,8 @@ class App extends Component {
                         this.state.persons.map((person, index) => {
                             return <Person
                                 click={() => this.deletePersonHandler(index)}
-                                key={index}
+                                changeName={(event) => this.switchNameHandler(event.target.value, person.id)}
+                                key={person.id} // this key should be a unique identifier like an id from the database
                                 name={person.name}/>
                         })
                     }
