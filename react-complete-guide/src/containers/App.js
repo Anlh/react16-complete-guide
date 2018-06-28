@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import classes from './App.css'; // Css module loader let us use css classes as properties attached to this classes object
-import Person from '../components/Persons/Person';
+import Persons from '../components/Persons/Persons';
 
 class App extends Component {
     state = {
@@ -21,18 +21,32 @@ class App extends Component {
         this.setState({showPersons: !this.state.showPersons});
     };
 
+    nameChangedHandler = (newName, id) => {
+        const personIndex = this.state.persons.findIndex(p => {
+            return p.id === id;
+        });
+
+        const person = {
+            ...this.state.persons[personIndex]
+        };
+
+        person.name = newName;
+
+        const persons = [...this.state.persons];
+        persons[personIndex] = person;
+
+        this.setState({persons: persons}); // or just this.setState({persons})
+    };
+
     render() {
         let personsList = null;
         let btnClass = '';
 
         if (this.state.showPersons) {
-            personsList = this.state.persons.map((person, index) => {
-                return <Person
-                    click={() => this.personRemoveHandler(index)}
-                    key={person.id}
-                    name={person.name}
-                    age={person.age}/>;
-            });
+            personsList = <Persons
+                clicked={this.personRemoveHandler}
+                changed={this.nameChangedHandler}
+                persons={this.state.persons}/>;
 
             btnClass = classes.Red;
         }
