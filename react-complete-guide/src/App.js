@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './App.css';
+import classes from './App.css'; // Css module loader let us use css classes as properties attached to this classes object
 import Person from './components/Person';
 
 class App extends Component {
@@ -31,8 +31,6 @@ class App extends Component {
             padding: '8px',
             cursor: 'pointer'
         };
-        let classes = ['bold', 'red'].join(' ');
-
         if (this.state.showPersons) {
             personsList = this.state.persons.map((p, index) => {
                 return <Person
@@ -45,10 +43,19 @@ class App extends Component {
             style.backgroundColor = 'red';
         }
 
+        const assignedClasses = [];
+        if (this.state.persons.length <= 2) {
+            assignedClasses.push(classes.red);
+        }
+
+        if (this.state.persons.length <= 1) {
+            assignedClasses.push(classes.bold);
+        }
+
         return (
-            <div className="App">
+            <div className={classes.App}>
                 <h1>React app</h1>
-                <p className={classes}>List of persons</p>
+                <p className={assignedClasses}>List of persons</p>
                 <button style={style} onClick={() => this.togglePersons()}>Toggle Persons</button>
                 {personsList}
             </div>
@@ -56,4 +63,4 @@ class App extends Component {
     }
 }
 
-export default Radium(App);
+export default App;
