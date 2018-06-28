@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import classes from './App.css'; // Css module loader let us use css classes as properties attached to this classes object
-import Person from './components/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Person from '../components/Persons/Person';
 
 class App extends Component {
     state = {
@@ -25,23 +24,14 @@ class App extends Component {
     render() {
         let personsList = null;
         let btnClass = '';
-        const rnd = Math.random();
-
-        if (rnd > 0.7) {
-            throw new Error('Something went wrong');
-        }
 
         if (this.state.showPersons) {
             personsList = this.state.persons.map((person, index) => {
-                return (
-                    <ErrorBoundary key={person.id}>
-                        <Person
-                            click={() => this.personRemoveHandler(index)}
-                            key={person.id}
-                            name={person.name}
-                            age={person.age}/>
-                    </ErrorBoundary>
-                );
+                return <Person
+                    click={() => this.personRemoveHandler(index)}
+                    key={person.id}
+                    name={person.name}
+                    age={person.age}/>;
             });
 
             btnClass = classes.Red;
