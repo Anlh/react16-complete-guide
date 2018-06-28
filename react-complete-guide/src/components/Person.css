@@ -7,9 +7,8 @@
     text-align: center;
 }
 
-/* We can achieve this using radium package
 @media (min-width: 500px){
     .Person {
         width: 450px;
     }
-}*/
+}

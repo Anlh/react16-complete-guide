@@ -23,14 +23,8 @@ class App extends Component {
 
     render() {
         let personsList = null;
-        const style = {
-            backgroundColor: 'green',
-            color: 'white',
-            font: 'inherit',
-            border: '1px solid blue',
-            padding: '8px',
-            cursor: 'pointer'
-        };
+        let btnClass = '';
+
         if (this.state.showPersons) {
             personsList = this.state.persons.map((p, index) => {
                 return <Person
@@ -40,7 +34,7 @@ class App extends Component {
                     age={p.age}/>
             });
 
-            style.backgroundColor = 'red';
+            btnClass = classes.Red;
         }
 
         const assignedClasses = [];
@@ -56,7 +50,9 @@ class App extends Component {
             <div className={classes.App}>
                 <h1>React app</h1>
                 <p className={assignedClasses}>List of persons</p>
-                <button style={style} onClick={() => this.togglePersons()}>Toggle Persons</button>
+                <button
+                    className={btnClass}
+                    onClick={() => this.togglePersons()}>Toggle Persons</button>
                 {personsList}
             </div>
         );
