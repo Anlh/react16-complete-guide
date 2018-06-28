@@ -23,6 +23,14 @@ class App extends Component {
         });
     };
 
+    deletePersonHandler = (personIndex) => {
+        // Mutate the state directly like this, is a bad practice, it can throw unexpected side effects
+        // const persons = this.state.persons;
+        // We should instead create a new copy in memory of the persons array
+        const persons =[...this.state.persons]; // Equal to ES5 syntax this.state.persons.slice();
+        persons.splice(personIndex, 1);
+        this.setState({persons});
+    };
 
     togglePersonHandler = () => {
         this.setState({showPersons: !this.state.showPersons});
@@ -39,8 +47,11 @@ class App extends Component {
                 <div>
                     {
                         // Must return valid JSX syntax in order to be rendered properly
-                        this.state.persons.map(person => {
-                            return <Person key={person.name} name={person.name}/>
+                        this.state.persons.map((person, index) => {
+                            return <Person
+                                click={() => this.deletePersonHandler(index)}
+                                key={index}
+                                name={person.name}/>
                         })
                     }
                 </div>
