@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 
 import classes from './Person.css';
 import withClass from '../../../hoc/withClass';
@@ -61,5 +62,11 @@ class Person extends PureComponent {
         )
     }
 }
+
+Person.propTypes = {
+    click: PropTypes.func, // The click property must be a function
+    name: PropTypes.string, // The name property must be a string
+    age: PropTypes.number // The number property must be a number
+};
 
 export default withClass(Person, classes.Person);

@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 
+
 import classes from './App.css'; // Css module loader let us use css classes as properties attached to this classes object
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
@@ -16,7 +17,7 @@ class App extends PureComponent {
 
         this.state = {
             persons: [
-                {id: '1', name: 'Helder', age: 27},
+                {id: '1', name: 'Helder', age: '27'},
                 {id: '2', name: 'Rui', age: 30}
             ],
             showPersons: false,
@@ -95,6 +96,12 @@ class App extends PureComponent {
         }
 
         return (
+
+            // Scenario: Let's imagine that props object comes from a JSON
+            // And we need to have certain that the property values are the expected types: strings, numbers
+            // we need to validate this values beforehand
+            // we can do this manually or we can use a 3rd party package to validate this
+
             <Aux>
                 <button onClick={() => this.setState({showPersons: true})}>Show Persons</button>
                 <Cockpit
