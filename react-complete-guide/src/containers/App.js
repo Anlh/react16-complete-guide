@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import classes from './App.css'; // Css module loader let us use css classes as properties attached to this classes object
 import Persons from '../components/Persons/Persons';
-
+import Cockpit from '../components/Cockpit/Cockpit';
+// Stateful component (Responsible for the state of our app)
+// The Persons and Cockpit are functional components(stateless) they don't care about the state
 class App extends Component {
     state = {
         persons: [
@@ -17,7 +19,7 @@ class App extends Component {
         this.setState({persons: persons});
     };
 
-    togglePersons = () => {
+    togglePersonsHandler = () => {
         this.setState({showPersons: !this.state.showPersons});
     };
 
@@ -40,34 +42,20 @@ class App extends Component {
 
     render() {
         let personsList = null;
-        let btnClass = '';
 
         if (this.state.showPersons) {
             personsList = <Persons
                 clicked={this.personRemoveHandler}
                 changed={this.nameChangedHandler}
                 persons={this.state.persons}/>;
-
-            btnClass = classes.Red;
-        }
-
-        const assignedClasses = [];
-        if (this.state.persons.length <= 2) {
-            assignedClasses.push(classes.red);
-        }
-
-        if (this.state.persons.length <= 1) {
-            assignedClasses.push(classes.bold);
         }
 
         return (
             <div className={classes.App}>
-                <h1>React app</h1>
-                <p className={assignedClasses}>List of persons</p>
-                <button
-                    className={btnClass}
-                    onClick={() => this.togglePersons()}>Toggle Persons
-                </button>
+                <Cockpit
+                    showPersons={this.state.showPersons}
+                    persons={this.state.persons}
+                    clicked={() => this.togglePersonsHandler()}/>
                 {personsList}
             </div>
         );
