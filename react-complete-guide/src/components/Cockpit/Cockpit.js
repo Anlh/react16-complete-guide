@@ -1,6 +1,8 @@
 import React from 'react';
+import Aux from '../../hoc/Aux';
 
 import classes from './Cockpit.css';
+import App from "../../containers/App";
 
 const cockpit = (props) => {
     const assignedClasses = [];
@@ -19,14 +21,14 @@ const cockpit = (props) => {
     }
 
     return (
-        <div className={classes.Cockpit}>
+        <Aux> {/* Replace the old wrapper div - it can mess up with or view styles*/}
             <h1>{props.title}</h1>
             <p className={assignedClasses}>List of persons</p>
             <button
                 className={btnClass}
                 onClick={props.clicked}>Toggle Persons
             </button>
-        </div>
+        </Aux>
     );
 };
 
