@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import classes from './App.css'; // Css module loader let us use css classes as properties attached to this classes object
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 // Stateful component (Responsible for the state of our app)
 // The Persons and Cockpit are functional components(stateless) they don't care about the state
-class App extends Component {
+class App extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -26,6 +26,11 @@ class App extends Component {
     componentDidMount() {
         console.log('[App.js] Inside componentDidMount()');
     }
+
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[App.js] Inside shouldComponentUpdate()', nextProps, nextState);
+    //     return nextProps.persons !== this.state.persons || nextState.showPersons !== this.state.showPersons;
+    // }
 
 
 
@@ -78,6 +83,7 @@ class App extends Component {
 
         return (
             <div className={classes.App}>
+                <button onClick={() => this.setState({showPersons: true})}>Show Persons</button>
                 <Cockpit
                     title={this.props.title}
                     showPersons={this.state.showPersons}

@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 
 import classes from './Person.css';
 
-class Person extends Component {
+class Person extends PureComponent {
     constructor(props) {
         super(props);
         console.log('[Person.js] Inside Constructor', props);
@@ -26,16 +26,19 @@ class Person extends Component {
         console.log('[UPDATE Person.js] Inside componentWillReceiveProps()', nextProps);
     }
 
+    // PureComponent imported do
+
     /**
      *
      * @param nextProps
      * @param nextState
      * @return boolean if the returns false this component lifecycle stops o/w it continues
      */
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[UPDATE Person.js] Inside shouldComponentUpdate', nextProps, nextState);
-        return true;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[UPDATE Person.js] Inside shouldComponentUpdate', nextProps, nextState);
+    //     return nextProps.persons !== this.props.persons;
+    //     // return true;
+    // }
 
     componentWillUpdate(nextProps, nextSate) {
         console.log('[UPDATE Person.js] Inside componentWillUpdate()', nextProps, nextSate);
