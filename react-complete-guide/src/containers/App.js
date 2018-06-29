@@ -5,13 +5,38 @@ import Cockpit from '../components/Cockpit/Cockpit';
 // Stateful component (Responsible for the state of our app)
 // The Persons and Cockpit are functional components(stateless) they don't care about the state
 class App extends Component {
-    state = {
-        persons: [
-            {id: '1', name: 'Helder', age: 27},
-            {id: '2', name: 'Rui', age: 30}
-        ],
-        showPersons: false
-    };
+
+    constructor(props) {
+        super(props);
+        console.log('[App.js] Inside Constructor', props);
+
+        this.state = {
+            persons: [
+                {id: '1', name: 'Helder', age: 27},
+                {id: '2', name: 'Rui', age: 30}
+            ],
+            showPersons: false
+        };
+    }
+
+    componentWillMount() {
+        console.log('[App.js] Inside componentWillMount()');
+    }
+
+    componentDidMount() {
+        console.log('[App.js] Inside componentDidMount()');
+    }
+
+
+
+    // Modern projects setups -  We can declare the state outside the constructor
+    // state = {
+    //     persons: [
+    //         {id: '1', name: 'Helder', age: 27},
+    //         {id: '2', name: 'Rui', age: 30}
+    //     ],
+    //     showPersons: false
+    // };
 
     personRemoveHandler = (personIndex) => {
         const persons = [...this.state.persons];
@@ -41,6 +66,7 @@ class App extends Component {
     };
 
     render() {
+        console.log('[App.js] Inside render()');
         let personsList = null;
 
         if (this.state.showPersons) {
@@ -53,6 +79,7 @@ class App extends Component {
         return (
             <div className={classes.App}>
                 <Cockpit
+                    title={this.props.title}
                     showPersons={this.state.showPersons}
                     persons={this.state.persons}
                     clicked={() => this.togglePersonsHandler()}/>

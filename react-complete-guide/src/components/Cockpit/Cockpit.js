@@ -20,7 +20,7 @@ const cockpit = (props) => {
 
     return (
         <div className={classes.Cockpit}>
-            <h1>React app</h1>
+            <h1>{props.title}</h1>
             <p className={assignedClasses}>List of persons</p>
             <button
                 className={btnClass}
