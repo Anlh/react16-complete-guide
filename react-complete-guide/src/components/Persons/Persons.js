@@ -8,7 +8,7 @@ const persons = (props) => props.persons.map((person, index) => { // Next gen ja
         key={person.id}
         name={person.name}
         age={person.age}
-        changed={(event) => props.changed(event, person.id)}/>;
+        changed={(event) => props.changed(event.target.value, person.id)}/>;
 });
 
 export default persons;

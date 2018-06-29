@@ -49,6 +49,8 @@ class Person extends PureComponent {
 
     componentDidUpdate() {
         console.log('[UPDATE Person.js] Inside componentDidUpdate()');
+        console.log('[Reference]:', this.inputElement);
+        this.inputElement.focus()
     }
 
     render() {
@@ -58,6 +60,11 @@ class Person extends PureComponent {
                 <p onClick={this.props.click}>Name: {this.props.name}</p>
                 <br/>
                 <p>Age: {this.props.age}</p>
+                <input
+                    ref={(inp) => {this.inputElement = inp}}
+                    type="text"
+                    onChange={this.props.changed}
+                    />
             </Aux>
         )
     }
@@ -66,7 +73,8 @@ class Person extends PureComponent {
 Person.propTypes = {
     click: PropTypes.func, // The click property must be a function
     name: PropTypes.string, // The name property must be a string
-    age: PropTypes.number // The number property must be a number
+    age: PropTypes.number, // The number property must be a number
+    changed: PropTypes.func // The changed property must be a function
 };
 
 export default withClass(Person, classes.Person);
