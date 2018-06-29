@@ -54,7 +54,16 @@ class App extends PureComponent {
     };
 
     togglePersonsHandler = () => {
-        this.setState({showPersons: !this.state.showPersons});
+        // Instead of using the normal setState
+        // if we want to deal with Async operations we use a callback function
+        // to ensure that we have always the last version of state to prevent some unexpected behaviors
+        // This is the preferable way of mutating state
+        this.setState((prevState, props) => {
+            return {
+                showPersons: !this.state.showPersons,
+                toggleClicked: prevState.toggleClicked + 1 // instead of this.state.toggleClicked
+            };
+        });
     };
 
     nameChangedHandler = (newName, id) => {
