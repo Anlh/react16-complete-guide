@@ -1,11 +1,15 @@
 import React, {PureComponent} from 'react';
+
 import classes from './App.css'; // Css module loader let us use css classes as properties attached to this classes object
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import Aux from '../hoc/Aux';
+import withClass from '../hoc/withClass';
+
+
 // Stateful component (Responsible for the state of our app)
 // The Persons and Cockpit are functional components(stateless) they don't care about the state
 class App extends PureComponent {
-
     constructor(props) {
         super(props);
         console.log('[App.js] Inside Constructor', props);
@@ -15,7 +19,8 @@ class App extends PureComponent {
                 {id: '1', name: 'Helder', age: 27},
                 {id: '2', name: 'Rui', age: 30}
             ],
-            showPersons: false
+            showPersons: false,
+            toggleClicked: 0
         };
     }
 
@@ -33,7 +38,6 @@ class App extends PureComponent {
     // }
 
 
-
     // Modern projects setups -  We can declare the state outside the constructor
     // state = {
     //     persons: [
@@ -43,7 +47,7 @@ class App extends PureComponent {
     //     showPersons: false
     // };
 
-    personRemoveHandler = (personIndex) => {
+    deletePersonHandler = (personIndex) => {
         const persons = [...this.state.persons];
         persons.splice(personIndex, 1);
         this.setState({persons: persons});
@@ -76,13 +80,13 @@ class App extends PureComponent {
 
         if (this.state.showPersons) {
             personsList = <Persons
-                clicked={this.personRemoveHandler}
+                clicked={this.deletePersonHandler}
                 changed={this.nameChangedHandler}
                 persons={this.state.persons}/>;
         }
 
         return (
-            <div className={classes.App}>
+            <Aux>
                 <button onClick={() => this.setState({showPersons: true})}>Show Persons</button>
                 <Cockpit
                     title={this.props.title}
@@ -90,9 +94,9 @@ class App extends PureComponent {
                     persons={this.state.persons}
                     clicked={() => this.togglePersonsHandler()}/>
                 {personsList}
-            </div>
+            </Aux>
         );
     }
 }
 
-export default App;
+export default withClass(App, classes.App);
