@@ -9,48 +9,25 @@ class Person extends PureComponent {
     constructor(props) {
         super(props);
         console.log('[Person.js] Inside Constructor', props);
+        // React 16.3 > let us use a built in method that let us pass the reference elements like
+        this.inputElement = React.createRef();
     }
 
     componentWillMount() {
         console.log('[Person.js] Inside componentWillMount()');
     }
 
+    // Will run after render hook
     componentDidMount() {
         console.log('[Person.js] Inside componentDidMount()');
+        // if we want to focus only the first element
+        // if (this.props.position === 0) {
+        //     this.inputElement.current.focus();
+        // }
     }
 
-    /**
-     * ************************
-     *  Lifecycle update hooks
-     * ************************
-     */
-
-    componentWillReceiveProps(nextProps) {
-        console.log('[UPDATE Person.js] Inside componentWillReceiveProps()', nextProps);
-    }
-
-    // PureComponent imported do
-
-    /**
-     *
-     * @param nextProps
-     * @param nextState
-     * @return boolean if the returns false this component lifecycle stops o/w it continues
-     */
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     console.log('[UPDATE Person.js] Inside shouldComponentUpdate', nextProps, nextState);
-    //     return nextProps.persons !== this.props.persons;
-    //     // return true;
-    // }
-
-    componentWillUpdate(nextProps, nextSate) {
-        console.log('[UPDATE Person.js] Inside componentWillUpdate()', nextProps, nextSate);
-    }
-
-    componentDidUpdate() {
-        console.log('[UPDATE Person.js] Inside componentDidUpdate()');
-        console.log('[Reference]:', this.inputElement);
-        this.inputElement.focus()
+    focus() {
+        this.inputElement.current.focus();
     }
 
     render() {
@@ -61,10 +38,10 @@ class Person extends PureComponent {
                 <br/>
                 <p>Age: {this.props.age}</p>
                 <input
-                    ref={(inp) => {this.inputElement = inp}}
+                    ref={this.inputElement}
                     type="text"
                     onChange={this.props.changed}
-                    />
+                />
             </Aux>
         )
     }
