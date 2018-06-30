@@ -7,6 +7,7 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
 
+export const AuthContext = React.createContext(false);
 
 // Stateful component (Responsible for the state of our app)
 // The Persons and Cockpit are functional components(stateless) they don't care about the state
@@ -21,7 +22,8 @@ class App extends PureComponent {
                 {id: '2', name: 'Rui', age: 30}
             ],
             showPersons: false,
-            toggleClicked: 0
+            toggleClicked: 0,
+            authenticated: false
         };
     }
 
@@ -84,6 +86,10 @@ class App extends PureComponent {
         this.setState({persons: persons}); // or just this.setState({persons})
     };
 
+    loginHandler = () => {
+        this.setState({authenticated: true});
+    };
+
     render() {
         console.log('[App.js] Inside render()');
         let personsList = null;
@@ -108,8 +114,11 @@ class App extends PureComponent {
                     title={this.props.title}
                     showPersons={this.state.showPersons}
                     persons={this.state.persons}
+                    login={this.loginHandler}
                     clicked={() => this.togglePersonsHandler()}/>
-                {personsList}
+                <AuthContext.Provider value={this.state.authenticated}>
+                    {personsList}
+                </AuthContext.Provider>
             </Aux>
         );
     }

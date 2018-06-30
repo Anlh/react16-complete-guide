@@ -34,7 +34,6 @@ const withClass = (WrappedComponent, className) => {
     // forwardRef built in method from React let us expose the reserved ref property and pass it to our class
     // this let us use ref property and access to his values
     return React.forwardRef((props, ref) => {
-        debugger;
         return <WithClass {...props} forwardedRef={ref}/>
     });
 };
