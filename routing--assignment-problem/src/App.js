@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Route, BrowserRouter, Switch, NavLink, Redirect} from 'react-router-dom';
 
 import Courses from './containers/Courses/Courses';
+import Course from './containers/Course/Course';
 import Users from './containers/Users/Users';
 
 import Aux from './hoc/aux';
@@ -28,24 +29,23 @@ import Aux from './hoc/aux';
 class App extends Component {
     render() {
         return (
-            <BrowserRouter basename="/">
-                <Aux>
-                    <header>
-                        <ul>
-                            <li><NavLink to="/users">Users</NavLink></li>
-                            <li><NavLink to="/courses">Courses</NavLink></li>
-                        </ul>
-                    </header>
-                    <Switch>
-                        <Route path="/" exact render={() => <h1>Welcome to Home page</h1>}/>
-                        <Route path="/users" exact component={Users}/>
-                        <Route path="/courses" component={Courses}/>
-                        <Redirect from="/all-courses" to='/courses'/>
-                        <Route render={() => <h1>404 not found</h1>}/>
-                        {/*<Route path="/course" exact component={Course}/>*/}
-                    </Switch>
-                </Aux>
-            </BrowserRouter>
+            <div className="App">
+                <nav>
+                    <ul>
+                        <li>
+                            <NavLink to="/courses">Courses</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/users">Users</NavLink>
+                        </li>
+                    </ul>
+                </nav>
+                <Switch>
+                    <Route path="/users" component={Users}/>
+                    {/*<Route path="/courses/:courseId/:courseTitle" component={Course}/>*/}
+                    <Route path="/courses" component={Courses}/>
+                </Switch>
+            </div>
         );
     }
 }

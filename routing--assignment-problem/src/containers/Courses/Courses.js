@@ -11,7 +11,7 @@ class Courses extends Component {
             { id: 2, title: 'Vue - The Complete Guide' },
             { id: 3, title: 'PWA - The Complete Guide' }
         ]
-    }
+    };
 
     render () {
         return (
@@ -24,7 +24,7 @@ class Courses extends Component {
                                 <Link
                                     key={course.id}
                                     to={{
-                                        pathname: '/courses/' + course.id,
+                                        pathname: this.props.match.url + '/' + course.id + '/' + course.title,
                                         search: '?title=' + course.title
                                     }}>
                                     <article className="Course">{course.title}</article>
@@ -33,7 +33,7 @@ class Courses extends Component {
                         } )
                     }
                 </section>
-                <Route path={'/courses/:id'} exact component={Course}/>
+                <Route path={this.props.match.url + '/:courseId/:courseTitle'} component={Course}/>
             </div>
         );
     }
