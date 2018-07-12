@@ -44,7 +44,7 @@ class Counter extends Component {
                 <CounterControl label="Add 5" clicked={this.props.onAddCounter.bind(null, 5)}/>
                 <CounterControl label="Subtract 5" clicked={this.props.onSubCounter.bind(null, 5)}/>
                 <hr/>
-                <button onClick={this.props.onStoreResult}>Store result</button>
+                <button onClick={() => this.props.onStoreResult(this.props.ctr)}>Store result</button>
                 <ul>
                     {this.props.storedResults.map(strResult => (
                         <li key={strResult.id} onClick={this.props.onDeleteResult.bind(null, strResult.id)}> {strResult.value} </li>
@@ -60,8 +60,8 @@ class Counter extends Component {
 const mapStateToProps = state => {
     // Go to the redux store and pass the values we want to use
     return {
-        ctr: state.counter, // state give us the global counter that we defined in the redux store,
-        storedResults: state.results //
+        ctr: state.ctr.counter, // state give us the global counter that we defined in the redux store,
+        storedResults: state.res.results //
     };
 };
 
@@ -72,7 +72,7 @@ const mapDispatchToProps = dispatch => {
         onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
         onAddCounter: (value) => dispatch({type: actionTypes.ADD, value}),
         onSubCounter: (value) => dispatch({type: actionTypes.SUBTRACT, value}),
-        onStoreResult: () => dispatch({type: actionTypes.STORE_RESULT}),
+        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result}),
         onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, id})
     };
 };
